@@ -22,7 +22,19 @@ type Value interface {
 
 type Context interface {
 	NewValue(val interface{}) interface{}
+	CopyValue(val interface{}) interface{}
+	StoreValue(key string, val interface{})
+	RetrieveValue(key string) interface{}
+	ReleaseValue(key string)
+	CompareValues(val1, val2 interface{}) (int, bool)
 	ExecuteStatement(statement string, namedArgs map[string]interface{}, positionalArgs []interface{}) (interface{}, uint64, error)
+	OpenStatement(statement string, namedArgs map[string]interface{}, positionalArgs []interface{}) (interface{}, error)
+	Log(fmt string, args ...interface{})
+}
+
+type Handle interface {
+	NextDocument() (interface{}, error)
+	Cancel()
 }
 
 func Args(args interface{}, context interface{}) (Value, Context, error) {
