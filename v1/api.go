@@ -30,9 +30,11 @@ type Context interface {
 	ExecuteStatement(statement string, namedArgs map[string]interface{}, positionalArgs []interface{}) (interface{}, uint64, error)
 	OpenStatement(statement string, namedArgs map[string]interface{}, positionalArgs []interface{}) (interface{}, error)
 	Log(fmt string, args ...interface{})
+	NestingLevel() int
 }
 
 type Handle interface {
+	Results() (interface{}, uint64, error)
 	NextDocument() (interface{}, error)
 	Cancel()
 }
