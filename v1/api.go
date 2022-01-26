@@ -34,6 +34,7 @@ type Context interface {
 }
 
 type Handle interface {
+	Type() string
 	Results() (interface{}, uint64, error)
 	NextDocument() (interface{}, error)
 	Cancel()
